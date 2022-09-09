@@ -32,6 +32,7 @@ Dependencies
 Example Playbook
 ----------------
 groups_vars/all.yml
+
 	user_name: provisioner
 	temporal_ssh_folder: "{{ lookup('env', 'PWD') }}"
 	temporal_ssh_key: "{{ temporal_ssh_folder }}/id_{{ user_name }}_rsa"
