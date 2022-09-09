@@ -1,0 +1,11 @@
+---
+# tasks file for ansible_user
+- name: "Add the user {{ user_name }} "
+  user:
+    name: "{{ user_name }}"
+    group: wheel
+
+- name: Deploy ssh key
+  authorized_key:
+    user: "{{ user_name }}"
+    key: "{{ lookup('file', '{{ temporal_ssh_key }}.pub') }}"

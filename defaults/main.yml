@@ -1,0 +1,4 @@
+---
+# defaults file for ansible_user
+user_name: provisioner
+temporal_ssh_key: /tmp/id_ssh_rsa
