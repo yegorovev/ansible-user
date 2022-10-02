@@ -1,0 +1,20 @@
+---
+- name: Create key
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: no
+  tasks:
+    - name: Generate ssh keys
+      community.crypto.openssh_keypair:
+        path: "{{ temporal_ssh_key }}"
+        size: 4096
+        type: rsa
+
+- name: Converge
+  hosts: all
+  vars:
+  tasks:
+    - name: "Include ansible-user"
+      include_role:
+        name: "ansible-user"
