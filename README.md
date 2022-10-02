@@ -17,17 +17,7 @@ Role Variables
 
 Dependencies
 ------------
-- ansible==6.3.0
-- ansible-core==2.13.3
-- cffi==1.15.1
-- cryptography==38.0.1
-- Jinja2==3.1.2
-- MarkupSafe==2.1.1
-- packaging==21.3
-- pycparser==2.21
-- pyparsing==3.0.9
-- PyYAML==6.0
-- resolvelib==0.8.1
+See requirements.txt
 
 Example Playbook
 ----------------
@@ -56,10 +46,6 @@ role.yml
 		  import_role:
 			name: ansible_user
 
-License
--------
-
-BSD
 
 Author Information
 ------------------
