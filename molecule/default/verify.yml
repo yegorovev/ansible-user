@@ -1,0 +1,32 @@
+---
+- name: Verify
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: no
+  tasks:
+  - name: Get Gateway
+    ansible.builtin.shell:
+      cmd: 'docker inspect -f \"\{\{.NetworkSettings.Gateway\}\}\" instance'
+    register: gw
+
+  - name: Gateway
+    ansible.builtin.debug:
+      var: gw.stdout
+
+  - name: Fix "Unprivileged users are not permitted to log in yet"
+    ansible.builtin.shell:
+      cmd: 'docker container exec instance rm /run/nologin'
+
+  - name: The checking of the user
+    ansible.builtin.shell:
+      cmd: "ssh -p 2000 {{ user_name }}@{{ gw.stdout }} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i {{ temporal_ssh_key }} 'sudo id'"
+    register: result
+    
+  - name: Output
+    ansible.builtin.debug:
+      var: result.stdout
+
+  - name: Assertion
+    ansible.builtin.assert:
+      that: result.stdout == "uid=0(root) gid=0(root) groups=0(root)"

@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: "local/rocky8-systemd-ssh:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    published_ports:
+      - "2000:22/tcp"
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        user_name: provisioner
+        temporal_ssh_folder: "{{ lookup('env', 'PWD') }}"
+        temporal_ssh_key: "{{ temporal_ssh_folder }}/id_{{ user_name }}_rsa"
+verifier:
+  name: ansible
