@@ -46,6 +46,14 @@ role.yml
 		  import_role:
 			name: ansible_user
 
+Molecule
+------------------
+
+```bash
+cd ansible-user
+docker build -t local/rocky8-systemd-ssh:latest .
+molecule test
+```
 
 Author Information
 ------------------
